@@ -36,6 +36,7 @@ public class Odev1 {
     public void test() {
         //Class Work Amazon Search Test
         //1-https://www.amazon.com/ sayfasina gidelim
+
         driver.get("https://www.amazon.com/");
         //2-arama kutusunu locate edelim
         //3--“Samsung headphones” ile arama yapalim

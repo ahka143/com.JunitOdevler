@@ -45,6 +45,15 @@ public class Odev2 {
      Assert.assertTrue("Title Google icermiyor",actualTitle.contains(expectedTitle));
 
 
+
+    }
+    @Test
+    public void odev2Test2() {
+
+
+        //2-https://www.google.com/ adresine gidin
+        driver.get("https://www.google.com/");
+
         //5-Arama cubuguna “Nutella” yazip aratin
         driver.findElement(By.xpath("//input[@title='Ara']")).sendKeys("Nutella" + Keys.ENTER);
         //6-Bulunan sonuc sayisini yazdirin
@@ -53,15 +62,8 @@ public class Odev2 {
 
         //7-sonuc sayisinin 10 milyon’dan fazla oldugunu test edin
         int bulunanSonucSayisi = Integer.parseInt(driver.findElement(By.xpath("//div[@id='result-stats']")).getText().split(" ")[1].replaceAll("\\D",""));
-        Assert.assertTrue("Sonuc 10000000 az",bulunanSonucSayisi > 100000000);
+        Assert.assertTrue("Sonuc 10000000 az",bulunanSonucSayisi > 10000000);
 
-
-    }
-    public void odev2Test2() {
-
-
-        //2-https://www.google.com/ adresine gidin
-        driver.get("https://www.google.com/");
     }
 }
 
