@@ -14,7 +14,9 @@ public class Odev5 extends TestBase {
         // Navigate to  https://testpages.herokuapp.com/styled/index.html
         driver.get("https://testpages.herokuapp.com/styled/index.html");
         // Click on  Calculate under Micro Apps
+
         JavascriptExecutor js= (JavascriptExecutor) driver;
+
         js.executeScript("window.scrollBy(0,300)");
         Thread.sleep(5000);
         driver.findElement(By.id("calculatetest")).click();
