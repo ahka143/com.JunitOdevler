@@ -1,3 +1,4 @@
+import org.junit.Test;
 import utilities.TestBase;
 
 public class GenelTekrartesti1 extends TestBase {
@@ -26,4 +27,11 @@ public class GenelTekrartesti1 extends TestBase {
     //Test 4
     //1
     //sepetteki ürünlerle eklediğimiz ürünlerin aynı olduğunu isim ve fiyat olarak doğrulayın
+
+    @Test
+    public void test01() {
+        driver.get("https://www.trivago.com.tr/");
+        System.out.println(driver.getTitle());
+
+    }
 }
