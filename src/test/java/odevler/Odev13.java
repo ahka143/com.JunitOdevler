@@ -5,10 +5,15 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import utilities.TestBase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Odev13 extends TestBase {
     @Test
@@ -40,33 +45,23 @@ public class Odev13 extends TestBase {
 
         //2 arama kutusuna iphone yazip aratin ve bulunan sonuç sayısını yazdırı n
         driver.findElement(By.id("twotabsearchtextbox")).sendKeys("iphone"+ Keys.ENTER);
-        String sonucYazisi[]=
-                driver.
-                        findElement(By.xpath("(//div[@class='a-section a-spacing-small a-spacing-top-small'])[1]")).
-                        getText().split("");
+        String sonucYazisi=  driver.
+                findElement(By.xpath("(//div[@class='a-section a-spacing-small a-spacing-top-small'])[1]")).
+                getText();
+        System.out.println(sonucYazisi.split("of")[1].replaceAll("\\D",""));
 
         //3 sonuc sayisi bildiren yazinin iphone icerdigini test edin
+        Assert.assertTrue(sonucYazisi.contains("iphone"));
         //4 ikinci ürüne relative locater kullanarak tıklay in
+        WebElement ilkSonucElementi=driver.findElement(By.xpath("(//img[@class='s-image'])[1]"));
+      WebElement ikinciUrunElementi=  driver.findElement(RelativeLocator.with(By.tagName("img")).below(ilkSonucElementi));
+      ikinciUrunElementi.click();
         //5 ürünün title'ni ve fiyatını variable’a assign edip ürünü sepete ekleyelim
+String ikinciUrunTitle=driver.findElement(By.xpath("//span[@id='productTitle']")).getText();
+        System.out.println(ikinciUrunTitle);
+        driver.findElement(By.xpath("//a[@title='Add to List']")).click();
 
     }
 
-    @Test
-    public void test03() {
-        //Test03
-        //1 yeni bir sekme açarak amazon a nasayfaya gid in
-        //2 dropdown’dan bebek bölümüne secin
-        //3 bebek puset aratıp bulundan sonuç sayısını yazdırın
-        //4 sonuç yazsının puset içerdiğini te st edin
-        //5 üçüncü ürüne relative locater kullanarak tıklay in
-        //6 title ve fiyat bilgilerini assign edelim ve ürünü sepete ekley in
 
-    }
-
-    @Test
-    public void test04() {
-        //Test 4
-        //1 sepetteki ürünlerle eklediğimiz ürünlerin aynı olduğunu isim ve fiyat olarak doğrulayın
-
-    }
 }
