@@ -1,15 +1,18 @@
 package ElifHocaSeleniumPractice;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.Assert;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import utilities.TestBase;
 
 import java.time.Duration;
 import java.util.List;
 
-public class Q03_CssLocator_MethodCreation {
+public class Q03_CssLocator_MethodCreation extends TestBase {
 
     /*
      ...Exercise3...
@@ -22,54 +25,27 @@ public class Q03_CssLocator_MethodCreation {
     1.method : createButtons(100)
     2.deleteButtonsAndValidate()
  */
-    public static void main(String[] args) {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
+
+    @Test
+    public void createButtons() {
         driver.get("http://the-internet.herokuapp.com/add_remove_elements/");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        createButtons(driver,100);
-        deleteButtonsAndValidate(driver,60);
 
-    }
-
-    private static void createButtons(WebDriver driver, int eklenecekSayi) {
-        WebElement addButton = driver.findElement(By.xpath("//*[@onclick ='addElement()']"));
-        for (int j = 0; j < eklenecekSayi; j++) {
-            addButton.click();
+        for (int i = 0; i < 100; i++) {
+            driver.findElement(By.xpath("//*[text()='Add Element']")).click();
         }
+       int silinenDeleteButtonsayisi= deleteButtonsAndValidate(99);
+
+        List<WebElement> deleteButtonsList=driver.findElements(By.xpath("(//*[text()='Delete'])"));
+        int expectedSonuc=100-deleteButtonsList.size();
+        Assert.assertEquals(expectedSonuc,silinenDeleteButtonsayisi);
     }
 
-
-    private static void deleteButtonsAndValidate(WebDriver driver, int number) {
-        List<WebElement> elements = driver.findElements(By.cssSelector("[onclick= 'deleteElement()']"));
-        int sizebeforeDelete = elements.size();
-
-        List<WebElement> buttonsDelete = driver.findElements(By.cssSelector("[onclick= 'deleteElement()']"));
-        int sayac= 0;
-
-        for (WebElement w :buttonsDelete){ //silecegim webelemente click yapiyorum
-            sayac ++;
-            if(sayac>number){
-                break;
-            }
-            w.click();
+    public int deleteButtonsAndValidate(int tiklamaSayisi) {
+        int silinenDeleteButonSayisi = 0;
+        for (int i = 1; i <=tiklamaSayisi ; i++) {
+            driver.findElement(By.xpath("(//*[text()='Delete'])[1]")).click();
+            silinenDeleteButonSayisi++;
         }
-
-        List<WebElement> elementsAfter = driver.findElements(By.cssSelector("[onclick= 'deleteElement()']"));
-        int sizeafterDelete = elementsAfter.size();//sildikten sonra kalanlar
-
-        if((sizebeforeDelete-number)==sizeafterDelete){
-            System.out.println("sizeafterDelete = " + sizeafterDelete);
-            System.out.println("SUCCESS");
-        }else
-            System.out.println("FAIL!");
-
-
+return  silinenDeleteButonSayisi;
     }
-
-
-
-
-
 }
